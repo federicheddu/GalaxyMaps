@@ -210,4 +210,28 @@ void save(Mesh& mesh, std::string object_name, std::string parameter_name, std::
         }
         handles_file.close();
     }
+
+    /* federicheddu section */
+    OpenVolumeMesh::VertexPropertyT<Vector3q> qarameter = mesh.request_vertex_property<Vector3q>("qarameter");
+
+    FILE *file;
+    std::string path = parameter_name;
+    path.replace(path.end()-3, path.end(), "txt");
+
+    file = fopen(path.c_str(), "w");
+    for(auto q : qarameter) {
+        write_rational(file, q[0], 10, true);
+        write_rational(file, q[1], 10, true);
+        write_rational(file, q[2], 10, true);
+    }
+    fclose(file);
+    /* end federicheddu */
+
+}
+
+// federicheddu function
+void write_rational(FILE *f, const mpq_class &rational, int base, bool newline) {
+    if(f == nullptr) exit(EXIT_FAILURE);
+    mpq_out_str(f, base, rational.get_mpq_t());
+    if(newline) fprintf(f, "\n");
 }

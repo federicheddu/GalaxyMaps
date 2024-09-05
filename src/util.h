@@ -14,3 +14,6 @@ bool tutte3d(Mesh& mesh);
 bool parameter_from_mesh(Mesh& mesh, Mesh& parameter_mesh);
 
 void save(Mesh& mesh, std::string object_name, std::string parameter_name, std::string handles_name = "");
+
+//federicheddu function
+void write_rational(FILE *f, const mpq_class &rational, int base, bool newline);

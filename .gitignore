@@ -2,3 +2,8 @@
 .vscode/
 build/
 build_nogui/
+.idea
+cmake-build-debug
+cmake-build-release
+cmake-build-no-gui
+result_*

@@ -80,6 +80,9 @@ int main(int argc, char** argv) {
         }
     }
 
+    //federicheddu - get start and end time
+    auto start = std::chrono::high_resolution_clock::now();
+
 #ifdef GUI
     nanogui::init();
     Screen* screen = new Screen();
@@ -116,6 +119,20 @@ int main(int argc, char** argv) {
 #else
     galaxy_map(mesh);
 #endif
+
+    //federicheddu - get end time
+    auto end = std::chrono::high_resolution_clock::now();
+    // federcheddu - elapsed time in seconds, saved in double
+    double elapsed_time = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
+    // federicheddu - log
+    std::string log_path = output_name + "_log.txt";
+    FILE *log;
+    log = fopen(log_path.c_str(), "w");
+    fprintf(log, "%s", input_mesh_name.c_str());
+    fprintf(log, " ; ");
+    fprintf(log, "%f", elapsed_time);
+    fprintf(log, " ; ");
+    fclose(log);
 
     if (output_name != "") {
         save(mesh, output_name + "_object.vtk", output_name + "_parameter.vtk");
